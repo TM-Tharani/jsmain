@@ -1,100 +1,56 @@
+let student = {};
 const questions = [
+  { q: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter"], answer: "Mars" },
   { q: "Who is known as the father of computers?", options: ["Charles Babbage", "Alan Turing", "Bill Gates"], answer: "Charles Babbage" },
-  { q: "What does HTTP stand for?", options: ["HyperText Transfer Protocol", "HighText Transfer Protocol", "Hyper Transfer Text Program"], answer: "HyperText Transfer Protocol" },
-  { q: "Solve: If 3x = 18, what is the value of x?", options: ["3", "6", "9"], answer: "6" },
-  { q: "Which is the largest ocean on Earth?", options: ["Atlantic Ocean", "Pacific Ocean", "Indian Ocean"], answer: "Pacific Ocean" }
+  { q: "What does HTTP stand for?", options: ["HyperText Transfer Protocol", "HighText Transfer Protocol", "HyperText Transmission Protocol"], answer: "HyperText Transfer Protocol" }
 ];
 
-let currentUser = {};
+function register() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const age = document.getElementById("age").value;
+  if (!name || !email || !age) { alert("Fill all fields!"); return; }
 
-function registerUser() {
-  let name = document.getElementById("name").value.trim();
-  let email = document.getElementById("email").value.trim();
-  let age = parseInt(document.getElementById("age").value);
-  let error = document.getElementById("error");
+  student = { name, email, age };
+  document.getElementById("registerSection").style.display = "none";
+  document.getElementById("quizSection").style.display = "block";
 
-  if (!name || !email || !age) {
-    error.innerText = "All fields are required!";
-    return;
-  }
-  if (age < 12) {
-    error.innerText = "Age must be at least 12!";
-    return;
-  }
-
-  currentUser = { name, email, age };
-
-  document.getElementById("registerSection").classList.add("hidden");
-  document.getElementById("quizSection").classList.remove("hidden");
-
-  loadQuiz();
-}
-
-function loadQuiz() {
-  let quizForm = document.getElementById("quizForm");
-  quizForm.innerHTML = "";
-
-  questions.forEach((q, i) => {
-    let html = `
-      <div class="question">
-        <h3>Q${i + 1}. ${q.q}</h3>
-    `;
-    q.options.forEach(opt => {
-      html += `
-        <label>
-          <input type="radio" name="q${i}" value="${opt}"> ${opt}
-        </label><br>
-      `;
-    });
-    html += "</div>";
-    quizForm.innerHTML += html;
-  });
+  document.getElementById("quizForm").innerHTML = `
+    <p>${questions[0].q}<br>
+     <label><input type="radio" name="q0" value="Earth"> Earth<br></label>
+      <label><input type="radio" name="q0" value="Mars"> Mars<br></label>
+      <label><input type="radio" name="q0" value="Jupiter"> Jupiter<br></label>
+    </p>
+    <p>${questions[1].q}<br>
+      <label><input type="radio" name="q1" value="Charles Babbage"> Charles Babbage<br></label>
+      <label><input type="radio" name="q1" value="Alan Turing"> Alan Turing<br></label>
+      <label><input type="radio" name="q1" value="Bill Gates"> Bill Gates<br></label>
+    </p>
+    <p>${questions[2].q}<br>
+      <label><input type="radio" name="q2" value="HyperText Transfer Protocol"> HyperText Transfer Protocol<br></label>
+      <label><input type="radio" name="q2" value="HighText Transfer Protocol"> HighText Transfer Protocol<br></label>
+      <label><input type="radio" name="q2" value="HyperText Transmission Protocol"> HyperText Transmission Protocol<br></label>
+    </p>
+  `;
 }
 
 function submitQuiz() {
-  let answers = [];
-  questions.forEach((q, i) => {
-    let selected = document.querySelector(`input[name="q${i}"]:checked`);
-    answers.push(selected ? selected.value : null);
-  });
+  let score = 0;
+  const ans0 = document.querySelector('input[name="q0"]:checked')?.value;
+  const ans1 = document.querySelector('input[name="q1"]:checked')?.value;
+  const ans2 = document.querySelector('input[name="q2"]:checked')?.value;
 
-  document.getElementById("quizMsg").innerText = "⏳ Calculating result...";
-  document.getElementById("loader").classList.remove("hidden");
+  if (ans0 === questions[0].answer) score++;
+  if (ans1 === questions[1].answer) score++;
+  if (ans2 === questions[2].answer) score++;
 
-  new Promise((resolve) => {
-    setTimeout(() => resolve(answers), 2500); 
-  }).then(answers => {
-    calculateResult(answers);
-  });
+  document.getElementById("quizSection").style.display = "none";
+  document.getElementById("resultSection").style.display = "block";
+
+  document.getElementById("result").innerText = `Hi ${student.name}, your score: ${score}/3`;
+  document.getElementById("jsonData").innerText = JSON.stringify({
+    student,
+    answers: { Q1: ans0, Q2: ans1, Q3: ans2 }
+  }, null, 2);
 }
-
-function calculateResult(answers) {
-  let correct = 0;
-  answers.forEach((ans, i) => {
-    if (ans === questions[i].answer) correct++;
-  });
-
-  let percentage = (correct / questions.length) * 100;
-  let grade = "D";
-  if (percentage >= 80) grade = "A";
-  else if (percentage >= 60) grade = "B";
-  else if (percentage >= 40) grade = "C";
-
-  let timestamp = new Date().toLocaleString();
-
-  let resultData = { ...currentUser, score: correct, percentage, grade, timestamp };
-
-  document.getElementById("quizSection").classList.add("hidden");
-  document.getElementById("resultSection").classList.remove("hidden");
-  document.getElementById("loader").classList.add("hidden");
-
-  document.getElementById("score").innerText = correct;
-  document.getElementById("percentage").innerText = percentage.toFixed(2);
-  document.getElementById("grade").innerText = grade;
-  document.getElementById("timestamp").innerText = timestamp;
-  document.getElementById("jsonData").innerText = JSON.stringify(resultData, null, 2);
-}
-
-function restart() {
-  location.reload();
-}
+letstudent()

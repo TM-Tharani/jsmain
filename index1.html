@@ -12,47 +12,26 @@
         <h1>QUIZ QUEST</h1>
     </header>
 
-  <!-- Registration Section -->
-  <section id="registerSection" class="card fade-in">
+  <div id="registerSection" class="card">
     <h2>Register</h2>
-    <label>Name:</label>
-    <input type="text" id="name" placeholder="Enter your name">
-    <label>Email:</label>
-    <input type="email" id="email" placeholder="Enter your email">
-    <label>Age:</label>
-    <input type="number" id="age" placeholder="Enter your age">
-    <button onclick="registerUser()">Register</button>
-    <p id="error" class="error"></p>
-  </section>
+    <input type="text" id="name" placeholder="Enter Name">
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="number" id="age" placeholder="Enter Age">
+    <p id="errorMsg" class="error"></p>
+    <button onclick="register()">Register</button>
+  </div>
 
-  <!-- Quiz Section -->
-  <section id="quizSection" class="card hidden fade-in">
+  <div id="quizSection" class="card hidden">
     <h2>Mini Quiz</h2>
     <form id="quizForm"></form>
     <button onclick="submitQuiz()">Submit Answers</button>
-    <p id="quizMsg" class="info"></p>
-    <div id="loader" class="loader hidden"></div>
-  </section>
+  </div>
 
-  <!-- Result Section -->
-  <section id="resultSection" class="card hidden fade-in">
+  <div id="resultSection" class="card hidden">
     <h2>Result Summary</h2>
-    <div class="result-box">
-      <p><b>Total Score:</b> <span id="score"></span></p>
-      <p><b>Percentage:</b> <span id="percentage"></span>%</p>
-      <p><b>Grade:</b> <span id="grade"></span></p>
-      <p><b>Timestamp:</b> <span id="timestamp"></span></p>
-    </div>
-
-    <h3>📦 JSON Data</h3>
-    <pre id="jsonData"></pre>
-
-    <button onclick="restart()">🔄 Restart</button>
-  </section>
-
-    <footer>
-    <p>© 2025 QUIZ QUEST | Designed with ❤️</p>
-    </footer>
-
+    <div id="result"></div>
+    <h3>JSON Data</h3>
+    <div id="jsonData" class="result"></div>
+  </div>
 </body>
 </html>
