@@ -1,0 +1,54 @@
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #eef2f7;
+    }
+
+    /* 2. Page Title */
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    /* 3. Section Headings */
+    h2 {
+      background: rgb(6, 153, 175);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    /* 4. Section Boxes */
+    section {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+
+    }
+
+    /* 5. Inputs and Buttons */
+    input, button {
+      margin: 5px;
+      padding: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: rgb(6, 153, 175);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background:rgb(6, 153, 175);
+    }
+
+    /* 6. Output Styling */
+    p{
+      font-weight: bold;
+      margin-top: 10px;
+    }

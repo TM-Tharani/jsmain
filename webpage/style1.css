@@ -1,0 +1,31 @@
+body {
+  font-family: Arial;
+  background-color: lightgray;
+}
+
+.container {
+  margin: 20px;
+}
+
+.card1, .card2, .card3, .card4, .card5, .card6 {
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+input {
+  margin: 5px 0;
+}
+
+button {
+  margin-top: 5px;
+}
+
+.output {
+  margin-top: 10px;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="dashboard.js"></script>
+</head>
+<body>
+<h1>🎓 Student Personal Dashboard</h1>
+
+<!-- Profile Section -->
+<section>
+  <h2>Profile</h2>
+  Name: <input id="name"><br>
+  Birth Year: <input id="birthYear"><br>
+  City: <input id="city"><br>
+  <button onclick="saveProfile()">Save Profile</button>
+  <p id="profileOutput"></p>
+</section>
+
+<!-- Age Checker -->
+<section>
+  <h2>Age Checker</h2>
+  <button onclick="checkAge()">Check Age</button>
+  <p id="ageOutput"></p>
+</section>
+
+<!-- Greeting -->
+<section>
+  <h2>Greeting</h2>
+  <button onclick="showGreeting()">Show Greeting</button>
+  <p id="greetOutput"></p>
+</section>
+
+<!-- Calculator -->
+<section>
+  <h2>Calculator</h2>
+  <input id="num1" placeholder="Number 1">
+  <input id="num2" placeholder="Number 2"><br>
+  <button onclick="calculate('+')">+</button>
+  <button onclick="calculate('-')">-</button>
+  <button onclick="calculate('*')">*</button>
+  <button onclick="calculate('/')">/</button>
+  <p id="calcOutput"></p>
+</section>
+
+<!-- Quotes -->
+<section>
+  <h2>Motivational Quotes</h2>
+  <button onclick="showQuote()">Show Quote</button>
+  <p id="quoteOutput"></p>
+</section>
+
+<!-- JSON Info -->
+<section>
+  <h2>View Stored Info (JSON)</h2>
+  <button onclick="showJSON()">View JSON</button>
+  <pre id="jsonOutput"></pre>
+</section>
+</body>
+</html>
