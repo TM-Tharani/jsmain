@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+
+<div class="container">
+  <h2>To-Do List</h2>
+  <div class="task-input">
+    <input type="text" id="taskText" placeholder="Enter task">
+    <select id="taskPriority">
+      <option value="high">High</option>
+      <option value="medium" selected>Medium</option>
+      <option value="low">Low</option>
+    </select>
+    <input type="date" id="taskDate">
+    <button onclick="addTask()">Add Task</button>
+  </div>
+  <ul id="taskList"></ul>
+</div>
+
+<script>
+  const taskText = document.getElementById('taskText');
+  const taskPriority = document.getElementById('taskPriority');
+  const taskDate = document.getElementById('taskDate');
+  const taskList = document.getElementById('taskList');
+
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+  function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
+  function renderTasks() {
+    taskList.innerHTML = '';
+    tasks.forEach((task, index) => {
+      const li = document.createElement('li');
+      li.className = task.priority;
+      if(task.completed) li.classList.add('completed');
+
+      li.innerHTML = `
+        <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleCompleted(${index})">
+        <span>${task.text} - <small>${task.date || 'No Date'}</small> [${task.completed ? 'Completed' : 'In Progress'}]</span>
+        <button onclick="deleteTask(${index})">Delete</button>
+      `;
+
+      taskList.appendChild(li);
+    });
+  }
+
+ function addTask() {
+  new Promise((resolve, reject) => {
+    const text = taskText.value.trim();
+    const priority = taskPriority.value;
+    const date = taskDate.value;
+
+    if (!text) {
+      reject("Task name cannot be empty!");
+    } else {
+      tasks.push({ text, priority, date, completed: false });
+      saveTasks();
+      renderTasks();
+      taskText.value = '';
+      taskDate.value = '';
+      resolve("Task added successfully!");
+    }
+  })
+  .then(message => {
+    alert(message); 
+  })
+  .catch(error => {
+    alert(error);
+  });
+}
+
+  function toggleCompleted(index) {
+    tasks[index].completed = !tasks[index].completed;
+    saveTasks();
+    renderTasks();
+  }
+
+  function deleteTask(index) {
+    tasks.splice(index,1);
+    saveTasks();
+    renderTasks();
+  }
+
+  renderTasks();
+</script>
+
+</body>
+</html>
